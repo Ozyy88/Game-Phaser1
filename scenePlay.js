@@ -62,10 +62,9 @@ var scenePlay = new Phaser.Class({
     this.snd_touch = this.sound.add("snd_touch");
     this.snd_walk = this.sound.add("snd_walk");
     this.snd_walk.loop = true;
-    this.snd_walk.setVolume(5);
-    this.snd_walk.play();
+    this.snd_walk.setVolume(0);
     if (!this.sound.get("music_play")) {
-      this.music_play = this.sound.add("music_play", { loop: true });
+      this.music_play = this.sound.add("music_play", { loop: true, volume: 0.45 });
     } else {
       this.music_play = this.sound.get("music_play");
     }
@@ -121,6 +120,9 @@ var scenePlay = new Phaser.Class({
         },
       });
       activeScene.snd_touch.play();
+      if (!activeScene.snd_walk.isPlaying) {
+        activeScene.snd_walk.play();
+      }
       if (!activeScene.music_play.isPlaying) {
         activeScene.music_play.play();
       }
@@ -243,7 +245,7 @@ var scenePlay = new Phaser.Class({
           onComplete: function () {
             prepareWorld();
             newLavelTransition();
-            activeScene.snd_walk.setVolume(5);
+            activeScene.snd_walk.setVolume(0.5);
           },
         });
       }
@@ -353,7 +355,7 @@ var scenePlay = new Phaser.Class({
       });
 
       if (currentLevel > 2) {
-        var x = Phaser.Math.Between(100, game.canvas.width - 100);
+        var x = Phaser.Math.Between(100, activeScene.game.canvas.width - 100);
         var enemy = enemies.create(
           x,
           -100,
@@ -502,13 +504,13 @@ var scenePlay = new Phaser.Class({
       this.player.setVelocityX(200);
       if (this.player.body.touching.down) {
         this.player.anims.play("right", true);
-        this.snd_walk.setVolume(5);
+        this.snd_walk.setVolume(0.5);
       }
     } else if (this.keyWAD.left.isDown || this.cursors.left.isDown) {
       this.player.setVelocityX(-200);
       if (this.player.body.touching.down) {
         this.player.anims.play("left", true);
-        this.snd_walk.setVolume(5);
+        this.snd_walk.setVolume(0.5);
       }
     } else {
       this.player.setVelocityX(0);
@@ -530,3 +532,26 @@ var scenePlay = new Phaser.Class({
     }
   },
 });
+
+var config = {
+  type: Phaser.AUTO,
+  width: layoutSize.w,
+  height: layoutSize.h,
+  parent: 'game-container',
+  scale: {
+    mode: Phaser.Scale.FIT,
+    autoCenter: Phaser.Scale.CENTER_BOTH,
+    width: layoutSize.w,
+    height: layoutSize.h,
+  },
+  physics: {
+    default: 'arcade',
+    arcade: {
+      gravity: { y: 0 },
+      debug: false,
+    },
+  },
+  scene: [scenePlay],
+};
+
+var game = new Phaser.Game(config);
