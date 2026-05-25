@@ -532,26 +532,3 @@ var scenePlay = new Phaser.Class({
     }
   },
 });
-
-var config = {
-  type: Phaser.AUTO,
-  width: layoutSize.w,
-  height: layoutSize.h,
-  parent: 'game-container',
-  scale: {
-    mode: Phaser.Scale.FIT,
-    autoCenter: Phaser.Scale.CENTER_BOTH,
-    width: layoutSize.w,
-    height: layoutSize.h,
-  },
-  physics: {
-    default: 'arcade',
-    arcade: {
-      gravity: { y: 0 },
-      debug: false,
-    },
-  },
-  scene: [scenePlay],
-};
-
-var game = new Phaser.Game(config);

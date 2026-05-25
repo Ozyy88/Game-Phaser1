@@ -27,3 +27,8 @@ Coin Hunter adalah game platformer 2D sederhana yang dikembangkan dengan Phaser 
 - HTML
 - CSS
 - JavaScript
+
+## Cara Menjalankan
+1. Buka `index.html` di browser modern.
+2. Jika `index.html` tidak bisa dijalankan langsung, gunakan server lokal seperti Live Server atau `python -m http.server` di folder `Coin-Hunter`.
+3. Mainkan game dengan tombol arah dan lompat.
